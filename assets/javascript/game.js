@@ -1,9 +1,9 @@
 $(document).ready(function () {
     //audio files
-    var audio = new Audio("assets/sounds/background.mp3");
+    var audio = new Audio("assets/Sounds/background.mp3");
     Audio.loop = true; // loop background music
-    var winAudio = new Audio("assets/sounds/win.mp3");
-    var loseAudio = new Audio("assets/sounds/lose.mp3");
+    var winAudio = new Audio("assets/Sounds/win.mp3");
+    var loseAudio = new Audio("assets/Sounds/lose.mp3");
 
     //win/loss variables
     var wins = 0; 
