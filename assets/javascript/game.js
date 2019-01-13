@@ -75,4 +75,3 @@ $(document).ready(function () {
         $("#losses").text("Losses: " + losses);
     });
 });
-  
