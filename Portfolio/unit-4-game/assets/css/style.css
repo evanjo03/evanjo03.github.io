@@ -1,0 +1,15 @@
+.crystal-image {
+width: 20%;
+height: auto;
+}
+body {
+background-image: url("../images/background.jpg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+color: white;
+}
+.jumbotron {
+background: none;
+}
