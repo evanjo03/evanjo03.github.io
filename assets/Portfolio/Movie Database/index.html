@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <title>Movie Database</title>
+    <style>
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background: beige;
+            /*background-image: url("assets/images/background.jpg"); 
+            background-repeat: no-repeat;
+            background-size: cover; */
+            color: black;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 700;
+            font-size: 40px;
+            color: white;
+        }
+
+
+        .poster {
+            width: 100%;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+
+        .movieDiv {
+            width: 20%;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .mainPoster {
+            width: 85%;
+            margin: 20px;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+
+        h6 {
+            padding: 5px;
+        }
+
+        .jumbotron {
+            background-color: teal;
+            border-bottom: 30px solid black;
+
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333;
+            /* old IE */
+            background-color: #333;
+            /* Modern Browsers */
+        }
+
+        #backButton {
+            background-color: teal;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="heading">
+            <h1>My Movies</h1>
+        </div>
+    </div>
+    <div id="display" class="container">
+
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            var tempMovies =
+                [
+                    "Matrix",
+                    "Lord of the Rings",
+                    "Transformers",
+                    "Troll 2",
+                    "Lord of the Rings the two towers",
+                    "National Treasure",
+                    "National Treasure book of secrets",
+                    "Fast and Furious",
+                    "Shaun of the Dead",
+                    "The Ring",
+                    "Blue",
+                    
+                 
+                ];
+
+
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyB8nbl0wIqSVyMl0b9ZwAwZqAOT2fn7FGM",
+                authDomain: "database-my-movies.firebaseapp.com",
+                databaseURL: "https://database-my-movies.firebaseio.com",
+                projectId: "database-my-movies",
+                storageBucket: "database-my-movies.appspot.com",
+                messagingSenderId: "1093102432514"
+            };
+            firebase.initializeApp(config);
+
+            var database = firebase.database();
+
+            // database.ref().set({
+            //     movies: myMovies
+            // });
+            // function getMovies(snapshot) {
+            //     myList = snapshot.val();
+            //     console.log(myList);
+            // }
+
+            // pull from database
+            // database.ref().on("value", function (snapshot) {
+            //     console.log("hello");
+            //     myMovies = snapshot.val();
+            // }), function (errorObject) {
+            //     console.log("The read failed: " + errorObject.code);
+            // };
+            // console.log(data);
+
+
+
+            //API call - might need my own key
+            function loadPageDisplay() {
+                for (i = 0; i < tempMovies.length; i++) {
+                    var movie = tempMovies[i];
+
+                    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+
+                    // Creating an AJAX call for the specific movie button being clicked
+                    $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function (response) {
+                        var movieDiv = $("<div class='movieDiv'>");
+                        movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
+                        movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+                        $("#display").append(movieDiv)
+
+                    });
+                }
+            }
+
+
+
+            $(document).on("click", "#backButton", function () {
+                $("#display").empty();
+                loadPageDisplay();
+            });
+
+
+            //click selection
+            $(document).on("click", ".movieDiv", function () {
+                //create our bootstrap elements dynamically
+                $("#display").empty().append("<div id='myRow' class='row'></div>");
+                $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
+                $("#display").append(`<button id="backButton" type="button" class="btn m-3">Back to Menu</button>`)
+
+                //make the call for the chosen movie
+                var selection = $(this).attr("data-title");
+
+                var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
+
+                // Creating an AJAX call for the specific movie button being clicked
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
+                    $("#posterCol").append(`<img class="mainPoster img-fluid" src="${response.Poster}">`);
+                    $("#selectionTitle").text(response.Title);
+                    $("#infoCol").append(` 
+                    <h6>Year: ${response.Year}</h6>
+                    <h6>Rated: ${response.Rated}</h6>
+                    <h6>Runtime: ${response.Runtime}</h6>
+                    <h6>Director: ${response.Director}</h6>
+                    <h6>Writer: ${response.Writer}</h6>
+                    <h6>Actors: ${response.Actors}</h6>
+                    <h6>Plot: ${response.Plot}</h6>
+                    <h6>Genre: ${response.Genre}</h6>
+                    <h6>Ratings: ${JSON.stringify(response.Ratings[0].Source)}: ${JSON.stringify(response.Ratings[0].Value)}</h6>`
+                    )
+
+                });
+            });
+
+            loadPageDisplay();
+
+        });
+    </script>
+</body>
+
+</html>
