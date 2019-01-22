@@ -4,7 +4,7 @@ html, body {
 }
 .pageHeader {
 background-image: url("../images/background.jpg");
-height: 400px;
+height: 700px;
 background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
@@ -22,7 +22,7 @@ text-align: center;
 text-align: center;
 position: relative;
 color: white;
-top: 122px;
+top: 300px;
 font-size: 50px;
 
 }
