@@ -20,13 +20,15 @@ text-align: center;
 }
 .name {
 text-align: center;
-position: absolute;
+position: relative;
 color: white;
 top: 122px;
 font-size: 50px;
 
 }
-
+.navbar.navbar-1 .navbar-toggler-icon {
+    background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=000');
+    }
 
 #about-me {
 padding: 40px;
@@ -83,7 +85,7 @@ text-decoration: none;
 color: white;
 }
 .navbar {
-background: rgb(29, 29, 29);
+background: rgb(22, 22, 22);
 /* border-bottom: 2px solid white; */
 }
 
