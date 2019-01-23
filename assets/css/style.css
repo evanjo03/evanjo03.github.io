@@ -92,6 +92,11 @@ li a:hover {
 color: teal;
 }
 
+#col-empty {
+    display: none;
+}
+
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
     .image {

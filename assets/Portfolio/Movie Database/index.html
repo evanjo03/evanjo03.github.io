@@ -110,10 +110,11 @@
                     "Shaun of the Dead",
                     "The Ring",
                     "Blue",
-                    
-                 
+
+
                 ];
 
+            var myMovies = ["apple"];
 
             // Initialize Firebase
             var config = {
@@ -128,24 +129,18 @@
 
             var database = firebase.database();
 
-            // database.ref().set({
-            //     movies: myMovies
-            // });
-            // function getMovies(snapshot) {
-            //     myList = snapshot.val();
-            //     console.log(myList);
-            // }
-
-            // pull from database
-            // database.ref().on("value", function (snapshot) {
-            //     console.log("hello");
-            //     myMovies = snapshot.val();
-            // }), function (errorObject) {
-            //     console.log("The read failed: " + errorObject.code);
-            // };
-            // console.log(data);
 
 
+
+            //pull from database
+            database.ref().on("value", function (snapshot) {
+                myMovies = snapshot.val();
+                console.log(myMovies.movies);
+
+
+
+
+            console.log(myMovies);
 
             //API call - might need my own key
             function loadPageDisplay() {
@@ -167,6 +162,10 @@
                     });
                 }
             }
+
+        }), function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            };
 
 
 
