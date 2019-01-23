@@ -4,7 +4,7 @@ html, body {
 }
 .pageHeader {
 background-image: url("../images/background.jpg");
-height: 700px;
+height: 800px;
 background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
@@ -55,8 +55,7 @@ text-align: center;
 padding: 20px;
 }
 .image {
-width: 45%
-
+width: 70%
 }
 
 #about-me p {
@@ -92,3 +91,11 @@ background: rgb(22, 22, 22);
 li a:hover {
 color: teal;
 }
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .image {
+        width: 90%
+    }
+
+} 
