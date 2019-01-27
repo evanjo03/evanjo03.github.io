@@ -86,9 +86,28 @@
             <h1>My Movies</h1>
         </div>
     </div>
-    <div id="display" class="container">
-
+    <div id="button-holder">
+        <button class="btn genre home" id="All">All</button>
+        <button class="btn genre" id="Horror">Horror</button>
+        <button class="btn genre" id="Action">Action</button>
+        <button class="btn genre" id="Adventure">Adventure</button>
+        <button class="btn genre" id="Drama">Drama</button>
+        <button class="btn genre" id="Fantasy">Fantasy</button>
+        <button class="btn genre" id="Thriller">Thriller</button>
+        <button class="btn genre" id="Family">Family</button>
+        <button class="btn genre" id="Sci-Fi">Sci-Fi</button>
+        <button class="btn genre" id="Mystery">Mystery</button>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputMovie1">Add Movie to List</label>
+                <input type="text" class="form-control" id="newMovie" placeholder="Movie">
+            </div>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
+    <div id="display" class="container">
+    </div>
+
 
 
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
@@ -108,11 +127,9 @@
                     "Shaun of the Dead",
                     "The Ring",
                     "Blue",
-
-
                 ];
 
-            var myMovies = ["apple"];
+            tempMovies.sort();
 
             // Initialize Firebase
             var config = {
@@ -128,48 +145,92 @@
             var database = firebase.database();
 
 
+            $("#submit").on("click", function () {
+                event.preventDefault();
+                $("#display").empty();
+                var myNewMovie = $("#newMovie").val().trim();
+                database.ref().push({
+                    movie: myNewMovie
+                });
+                $("#newMovie").val("");
 
+            });
 
-            // //pull from database
-            // database.ref().on("value", function (snapshot) {
-            //     myMovies = snapshot.val();
-            //     console.log(myMovies.movies);
+            var myList = []
+            database.ref().on("child_added", function (childSnapshot) {
+                var myMovie = childSnapshot.val().movie;
+                myList.push(myMovie);
+                myList.sort();
 
+ 
 
+            var movieIndex = 0;
 
-
-            console.log(myMovies);
-
-            //API call - might need my own key
+            //this function is recursive and pulls the movies in order
             function loadPageDisplay() {
-                for (i = 0; i < tempMovies.length; i++) {
-                    var movie = tempMovies[i];
+                var movie = myList[movieIndex];
+                var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 
-                    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-
-                    // Creating an AJAX call for the specific movie button being clicked
-                    $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    }).then(function (response) {
-                        var movieDiv = $("<div class='movieDiv'>");
-                        movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-                        movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
-                        $("#display").append(movieDiv)
-
-                    });
-                }
+                // Creating an AJAX call for the specific movie button being clicked
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    var movieDiv = $("<div class='movieDiv'>");
+                    movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
+                    movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+                    $("#display").append(movieDiv)
+                    movieIndex++;
+                }).then(function () {
+                    if (movieIndex < myList.length) {
+                        loadPageDisplay();
+                    }
+                    else {
+                        movieIndex = 0;
+                    }
+                });
             }
 
-        // }), function (errorObject) {
-        //         console.log("The read failed: " + errorObject.code);
-        //     };
+            var isGenre = false;
 
+            function loadPageDisplayGenre(genre) {
+                var movie = tempMovies[movieIndex];
+                var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 
+                // Creating an AJAX call for the specific movie button being clicked
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
 
-            $(document).on("click", "#backButton", function () {
+                    var movieDiv = $("<div class='movieDiv'>");
+                    movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
+                    movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+                    var genreArray = movieDiv.attr("data-genre").split(", ");
+                    for (i = 0; i < genreArray.length; i++) {
+                        if (genre === genreArray[i]) {
+                            $("#display").append(movieDiv);
+                        }
+                    }
+                    movieIndex++;
+                }).then(function () {
+                    if (movieIndex < tempMovies.length) {
+                        loadPageDisplayGenre(genre);
+                    }
+                    else {
+                        movieIndex = 0;
+                    }
+                });
+            }
+
+            $(document).on("click", ".home", function () {
                 $("#display").empty();
                 loadPageDisplay();
+            });
+
+            $(".genre").on("click", function () {
+                $("#display").empty();
+                loadPageDisplayGenre($(this).attr("id"));
             });
 
 
@@ -178,7 +239,7 @@
                 //create our bootstrap elements dynamically
                 $("#display").empty().append("<div id='myRow' class='row'></div>");
                 $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
-                $("#display").append(`<button id="backButton" type="button" class="btn m-3">Back to Menu</button>`)
+                $("#display").append(`<button id="backButton" type="button" class="btn m-3 home">Back to Menu</button>`)
 
                 //make the call for the chosen movie
                 var selection = $(this).attr("data-title");
@@ -207,9 +268,11 @@
 
                 });
             });
-
             loadPageDisplay();
-
+               // Handle the errors
+            }, function (errorObject) {
+                console.log("Errors handled: " + errorObject.code);
+            });
         });
     </script>
 </body>
