@@ -14,70 +14,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Movie Database</title>
-    <style>
-        body {
-            font-family: 'PT Sans', sans-serif;
-            background: beige;
-            /*background-image: url("assets/images/background.jpg"); 
-            background-repeat: no-repeat;
-            background-size: cover; */
-            color: black;
-        }
-
-        h1 {
-            text-align: center;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-weight: 700;
-            font-size: 40px;
-            color: white;
-        }
-
-
-        .poster {
-            width: 100%;
-            border-radius: 5px;
-            border: 2px solid black;
-        }
-
-        .movieDiv {
-            width: 20%;
-            display: inline-block;
-            margin: 20px;
-        }
-
-        .mainPoster {
-            width: 85%;
-            margin: 20px;
-            border-radius: 5px;
-            border: 2px solid black;
-        }
-
-        h6 {
-            padding: 5px;
-        }
-
-        .jumbotron {
-            background-color: teal;
-            border-bottom: 30px solid black;
-
-        }
-
-        hr {
-            border: none;
-            height: 1px;
-            /* Set the hr color */
-            color: #333;
-            /* old IE */
-            background-color: #333;
-            /* Modern Browsers */
-        }
-
-        #backButton {
-            background-color: teal;
-            color: white;
-        }
-    </style>
 </head>
 
 <body>
@@ -86,7 +24,7 @@
             <h1>My Movies</h1>
         </div>
     </div>
-    <div id="button-holder">
+    <!-- <div id="button-holder">
         <button class="btn genre home" id="All">All</button>
         <button class="btn genre" id="Horror">Horror</button>
         <button class="btn genre" id="Action">Action</button>
@@ -104,7 +42,7 @@
             </div>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
-    </div>
+    </div> -->
     <div id="display" class="container">
     </div>
 
@@ -131,6 +69,9 @@
 
             tempMovies.sort();
 
+            var movieIndex = 0;
+            var movieTitleArray = [];
+
             // Initialize Firebase
             var config = {
                 apiKey: "AIzaSyB8nbl0wIqSVyMl0b9ZwAwZqAOT2fn7FGM",
@@ -140,10 +81,10 @@
                 storageBucket: "database-my-movies.appspot.com",
                 messagingSenderId: "1093102432514"
             };
+
             firebase.initializeApp(config);
 
             var database = firebase.database();
-
 
             $("#submit").on("click", function () {
                 event.preventDefault();
@@ -157,104 +98,114 @@
             });
 
             var myList = []
-            database.ref().on("child_added", function (childSnapshot) {
-                var myMovie = childSnapshot.val().movie;
-                myList.push(myMovie);
-                myList.sort();
+            // database.ref().on("child_added", function (childSnapshot) {
+            //     var myMovie = childSnapshot.val().movie;
+            //     if (myList.indexOf(myMovie) === -1) {
+            //         myList.push(myMovie);
+            //     }
+            //     myList.sort();
 
- 
 
-            var movieIndex = 0;
 
-            //this function is recursive and pulls the movies in order
-            function loadPageDisplay() {
-                var movie = myList[movieIndex];
-                var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+                //this function is recursive and pulls the movies in order
+                function loadPageDisplay() {
+                    $("#display").empty();
+                    for (i = 0; i < tempMovies.length; i++) {
+                        var movie = tempMovies[i]; //myList
+                        var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 
-                // Creating an AJAX call for the specific movie button being clicked
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    var movieDiv = $("<div class='movieDiv'>");
-                    movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-                    movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
-                    $("#display").append(movieDiv)
-                    movieIndex++;
-                }).then(function () {
-                    if (movieIndex < myList.length) {
-                        loadPageDisplay();
-                    }
-                    else {
-                        movieIndex = 0;
-                    }
-                });
-            }
-
-            var isGenre = false;
-
-            function loadPageDisplayGenre(genre) {
-                var movie = tempMovies[movieIndex];
-                var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-
-                // Creating an AJAX call for the specific movie button being clicked
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-
-                    var movieDiv = $("<div class='movieDiv'>");
-                    movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-                    movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
-                    var genreArray = movieDiv.attr("data-genre").split(", ");
-                    for (i = 0; i < genreArray.length; i++) {
-                        if (genre === genreArray[i]) {
+                        // Creating an AJAX call for the specific movie button being clicked
+                        $.ajax({
+                            url: queryURL,
+                            method: "GET"
+                        }).then(function (response) {
+                            var movieDiv = $("<div class='movieDiv'>");
+                            movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
+                            movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+                            var movieTitle = movieDiv.attr("data-title");
                             $("#display").append(movieDiv);
-                        }
-                    }
-                    movieIndex++;
-                }).then(function () {
-                    if (movieIndex < tempMovies.length) {
-                        loadPageDisplayGenre(genre);
-                    }
-                    else {
-                        movieIndex = 0;
-                    }
-                });
-            }
+                        });
+                    //if (movieTitleArray.indexOf(movieTitle) === -1) {
+                //         $("#display").append(movieDiv)
+                //         movieTitleArray.push(movieTitle);
+                //     };
+                //     movieIndex++;
+                // }).then(function () {
+                //     if (movieIndex < myList.length) {
+                //         loadPageDisplay();
+                //     }
+                //     else {
+                //         movieIndex = 0;
+                
+                };
+        };
 
-            $(document).on("click", ".home", function () {
-                $("#display").empty();
-                loadPageDisplay();
-            });
+        //var isGenre = false;
 
-            $(".genre").on("click", function () {
-                $("#display").empty();
-                loadPageDisplayGenre($(this).attr("id"));
-            });
+        // function loadPageDisplayGenre(genre) {
+        //     var movie = tempMovies[movieIndex];
+        //     var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+
+        //     // Creating an AJAX call for the specific movie button being clicked
+        //     $.ajax({
+        //         url: queryURL,
+        //         method: "GET"
+        //     }).then(function (response) {
+
+        //         var movieDiv = $("<div class='movieDiv'>");
+        //         movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
+        //         movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+        //         var movieTitle = movieDiv.attr("data-title");
+        //         console.log(movieTitle);
+        //         var genreArray = movieDiv.attr("data-genre").split(", ");
+        //         for (i = 0; i < genreArray.length; i++) {
+        //             if (genre === genreArray[i]) {
+        //                 $("#display").append(movieDiv);
+        //             }
+        //         }
+        //         movieIndex++;
+        //     }).then(function () {
+        //         if (movieIndex < tempMovies.length) {
+        //             loadPageDisplayGenre(genre);
+        //         }
+        //         else {
+        //             movieIndex = 0;
+        //         }
+        //     });
+        //}
+
+        $(document).on("click", ".home", function () {
+            $("#display").empty();
+            loadPageDisplay();
+        });
+
+        // $(".genre").on("click", function () {
+        //     $("#display").empty();
+        //     loadPageDisplayGenre($(this).attr("id"));
+        // });
 
 
-            //click selection
-            $(document).on("click", ".movieDiv", function () {
-                //create our bootstrap elements dynamically
-                $("#display").empty().append("<div id='myRow' class='row'></div>");
-                $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
-                $("#display").append(`<button id="backButton" type="button" class="btn m-3 home">Back to Menu</button>`)
+        //click selection
+        $(document).on("click", ".movieDiv", function () {
+            //create our bootstrap elements dynamically
+            $("#display").empty().append("<div id='myRow' class='row'></div>");
+            $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
+            $("#display").append(`<button id="backButton" type="button" class="btn m-3 home">Back to Menu</button>`)
 
-                //make the call for the chosen movie
-                var selection = $(this).attr("data-title");
+            //make the call for the chosen movie
+            var selection = $(this).attr("data-title");
 
-                var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
+            var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
 
-                // Creating an AJAX call for the specific movie button being clicked
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                }).then(function (response) {
-                    $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
-                    $("#posterCol").append(`<img class="mainPoster img-fluid" src="${response.Poster}">`);
-                    $("#selectionTitle").text(response.Title);
-                    $("#infoCol").append(` 
+            // Creating an AJAX call for the specific movie button being clicked
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
+                $("#posterCol").append(`<img class="mainPoster img-fluid" src="${response.Poster}">`);
+                $("#selectionTitle").text(response.Title);
+                $("#infoCol").append(` 
                     <h6>Year: ${response.Year}</h6>
                     <h6>Rated: ${response.Rated}</h6>
                     <h6>Runtime: ${response.Runtime}</h6>
@@ -264,16 +215,16 @@
                     <h6>Plot: ${response.Plot}</h6>
                     <h6>Genre: ${response.Genre}</h6>
                     <h6>Ratings: ${JSON.stringify(response.Ratings[0].Source)}: ${JSON.stringify(response.Ratings[0].Value)}</h6>`
-                    )
+                )
 
-                });
-            });
-            loadPageDisplay();
-               // Handle the errors
-            }, function (errorObject) {
-                console.log("Errors handled: " + errorObject.code);
             });
         });
+        loadPageDisplay();
+            // Handle the errors
+        //}, function (errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+        //});
     </script>
 </body>
 
