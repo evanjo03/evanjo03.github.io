@@ -24,208 +24,32 @@
             <h1>My Movies</h1>
         </div>
     </div>
-    <!-- <div id="button-holder">
-        <button class="btn genre home" id="All">All</button>
-        <button class="btn genre" id="Horror">Horror</button>
-        <button class="btn genre" id="Action">Action</button>
-        <button class="btn genre" id="Adventure">Adventure</button>
-        <button class="btn genre" id="Drama">Drama</button>
-        <button class="btn genre" id="Fantasy">Fantasy</button>
-        <button class="btn genre" id="Thriller">Thriller</button>
-        <button class="btn genre" id="Family">Family</button>
-        <button class="btn genre" id="Sci-Fi">Sci-Fi</button>
-        <button class="btn genre" id="Mystery">Mystery</button>
-        <form>
-            <div class="form-group">
-                <label for="exampleInputMovie1">Add Movie to List</label>
-                <input type="text" class="form-control" id="newMovie" placeholder="Movie">
+    <div class="container">
+        <div class="row">
+            <div class=col id="button-holder">
+                <button class="btn genre home" id="All">All</button>
+                <button class="btn genre p-2" id="Horror">Horror</button>
+                <button class="btn genre p-2" id="Action">Action</button>
+                <button class="btn genre p-2" id="Adventure">Adventure</button>
+                <button class="btn genre p-2" id="Drama">Drama</button>
+                <button class="btn genre p-2" id="Fantasy">Fantasy</button>
+                <button class="btn genre p-2" id="Thriller">Thriller</button>
+                <button class="btn genre p-2" id="Family">Family</button>
+                <button class="btn genre p-2" id="Sci-Fi">Sci-Fi</button>
+                <button class="btn genre p-2" id="Mystery">Mystery</button>
             </div>
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div> -->
-    <div id="display" class="container">
+        </div>
     </div>
-
-
-
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="display"></div>
+            </div>
+        </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var tempMovies =
-                [
-                    "Matrix",
-                    "Lord of the Rings",
-                    "Transformers",
-                    "Troll 2",
-                    "Lord of the Rings the two towers",
-                    "National Treasure",
-                    "National Treasure book of secrets",
-                    "Fast and Furious",
-                    "Shaun of the Dead",
-                    "The Ring",
-                    "Blue",
-                ];
-
-            tempMovies.sort();
-
-            var movieIndex = 0;
-            var movieTitleArray = [];
-
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyB8nbl0wIqSVyMl0b9ZwAwZqAOT2fn7FGM",
-                authDomain: "database-my-movies.firebaseapp.com",
-                databaseURL: "https://database-my-movies.firebaseio.com",
-                projectId: "database-my-movies",
-                storageBucket: "database-my-movies.appspot.com",
-                messagingSenderId: "1093102432514"
-            };
-
-            firebase.initializeApp(config);
-
-            var database = firebase.database();
-
-            $("#submit").on("click", function () {
-                event.preventDefault();
-                $("#display").empty();
-                var myNewMovie = $("#newMovie").val().trim();
-                database.ref().push({
-                    movie: myNewMovie
-                });
-                $("#newMovie").val("");
-
-            });
-
-            var myList = []
-            // database.ref().on("child_added", function (childSnapshot) {
-            //     var myMovie = childSnapshot.val().movie;
-            //     if (myList.indexOf(myMovie) === -1) {
-            //         myList.push(myMovie);
-            //     }
-            //     myList.sort();
-
-
-
-                //this function is recursive and pulls the movies in order
-                function loadPageDisplay() {
-                    $("#display").empty();
-                    for (i = 0; i < tempMovies.length; i++) {
-                        var movie = tempMovies[i]; //myList
-                        var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-
-                        // Creating an AJAX call for the specific movie button being clicked
-                        $.ajax({
-                            url: queryURL,
-                            method: "GET"
-                        }).then(function (response) {
-                            var movieDiv = $("<div class='movieDiv'>");
-                            movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-                            movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
-                            var movieTitle = movieDiv.attr("data-title");
-                            $("#display").append(movieDiv);
-                        });
-                    //if (movieTitleArray.indexOf(movieTitle) === -1) {
-                //         $("#display").append(movieDiv)
-                //         movieTitleArray.push(movieTitle);
-                //     };
-                //     movieIndex++;
-                // }).then(function () {
-                //     if (movieIndex < myList.length) {
-                //         loadPageDisplay();
-                //     }
-                //     else {
-                //         movieIndex = 0;
-                
-                };
-        };
-
-        //var isGenre = false;
-
-        // function loadPageDisplayGenre(genre) {
-        //     var movie = tempMovies[movieIndex];
-        //     var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-
-        //     // Creating an AJAX call for the specific movie button being clicked
-        //     $.ajax({
-        //         url: queryURL,
-        //         method: "GET"
-        //     }).then(function (response) {
-
-        //         var movieDiv = $("<div class='movieDiv'>");
-        //         movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-        //         movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
-        //         var movieTitle = movieDiv.attr("data-title");
-        //         console.log(movieTitle);
-        //         var genreArray = movieDiv.attr("data-genre").split(", ");
-        //         for (i = 0; i < genreArray.length; i++) {
-        //             if (genre === genreArray[i]) {
-        //                 $("#display").append(movieDiv);
-        //             }
-        //         }
-        //         movieIndex++;
-        //     }).then(function () {
-        //         if (movieIndex < tempMovies.length) {
-        //             loadPageDisplayGenre(genre);
-        //         }
-        //         else {
-        //             movieIndex = 0;
-        //         }
-        //     });
-        //}
-
-        $(document).on("click", ".home", function () {
-            $("#display").empty();
-            loadPageDisplay();
-        });
-
-        // $(".genre").on("click", function () {
-        //     $("#display").empty();
-        //     loadPageDisplayGenre($(this).attr("id"));
-        // });
-
-
-        //click selection
-        $(document).on("click", ".movieDiv", function () {
-            //create our bootstrap elements dynamically
-            $("#display").empty().append("<div id='myRow' class='row'></div>");
-            $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
-            $("#display").append(`<button id="backButton" type="button" class="btn m-3 home">Back to Menu</button>`)
-
-            //make the call for the chosen movie
-            var selection = $(this).attr("data-title");
-
-            var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
-
-            // Creating an AJAX call for the specific movie button being clicked
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (response) {
-                $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
-                $("#posterCol").append(`<img class="mainPoster img-fluid" src="${response.Poster}">`);
-                $("#selectionTitle").text(response.Title);
-                $("#infoCol").append(` 
-                    <h6>Year: ${response.Year}</h6>
-                    <h6>Rated: ${response.Rated}</h6>
-                    <h6>Runtime: ${response.Runtime}</h6>
-                    <h6>Director: ${response.Director}</h6>
-                    <h6>Writer: ${response.Writer}</h6>
-                    <h6>Actors: ${response.Actors}</h6>
-                    <h6>Plot: ${response.Plot}</h6>
-                    <h6>Genre: ${response.Genre}</h6>
-                    <h6>Ratings: ${JSON.stringify(response.Ratings[0].Source)}: ${JSON.stringify(response.Ratings[0].Value)}</h6>`
-                )
-
-            });
-        });
-        loadPageDisplay();
-            // Handle the errors
-        //}, function (errorObject) {
-            console.log("Errors handled: " + errorObject.code);
-        });
-        //});
-    </script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
 
 </html>
