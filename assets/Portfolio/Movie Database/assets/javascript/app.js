@@ -24,18 +24,18 @@ $(document).ready(function () {
     console.log(movieIndex);
 
     // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyB8nbl0wIqSVyMl0b9ZwAwZqAOT2fn7FGM",
-        authDomain: "database-my-movies.firebaseapp.com",
-        databaseURL: "https://database-my-movies.firebaseio.com",
-        projectId: "database-my-movies",
-        storageBucket: "database-my-movies.appspot.com",
-        messagingSenderId: "1093102432514"
-    };
+    // var config = {
+    //     apiKey: "AIzaSyB8nbl0wIqSVyMl0b9ZwAwZqAOT2fn7FGM",
+    //     authDomain: "database-my-movies.firebaseapp.com",
+    //     databaseURL: "https://database-my-movies.firebaseio.com",
+    //     projectId: "database-my-movies",
+    //     storageBucket: "database-my-movies.appspot.com",
+    //     messagingSenderId: "1093102432514"
+    // };
 
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
 
-    var database = firebase.database();
+    // var database = firebase.database();
 
     function loadPageDisplay() {
         var movie = tempMovies[movieIndex]; //myList
