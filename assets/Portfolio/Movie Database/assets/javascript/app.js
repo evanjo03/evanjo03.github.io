@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var tempMovies =
+    var joelMovies =
         [
             "Killjoy",
             "killjoy 2",
@@ -17,6 +17,115 @@ $(document).ready(function () {
             "dead alive",
             "evil bong"
         ];
+    var addMovies =
+        [
+            "Harry Potter and the Sorcerer's Stone",
+            "Harry Potter and the Chamber of Secrets",
+            "Harry Potter and the Prisoner of Azkaban",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Order of the Phoenix",
+            "Harry Potter and the Half-Blood Prince",
+            "Harry Potter and the Deathly Hallows: Part 1",
+            "Harry Potter and the Deathly Hallows: Part 2",
+            "The Lord of the Rings: The Fellowship of the Ring",
+            "The Lord of the Rings: The Two Towers",
+            "The Lord of the Rings: The Return of the King",
+            "The Avengers",
+            "Avengers: Infinity War",
+            "Captain Marvel",
+            "Black Panther",
+            "Ant-Man and the Wasp",
+            "Spider-Man: Far From Home",
+            "Guardians of the Galaxy",
+            "Doctor Strange",
+            "Iron Man",
+            "Ant-Man",
+            "Thor: Ragnarok",
+            "Thor",
+            "Spider-Man: Homecoming",
+            "Captain America: The Winter Soldier",
+            "Captain America: Civil War",
+            "Avengers: Age of Ultron",
+            "Guardians of the Galaxy Vol. 2",
+            "The Incredible Hulk",
+            "Thor: The Dark World",
+            "Iron Man 3",
+            "Spider-Man 3",
+            "Iron Man 2",
+            "Spider-Man 2",
+            "X-Men",
+            "X-Men: First Class",
+            "Hulk",
+            "Ghost Rider",
+            "Fantastic Four",
+            "X2",
+            "Blade",
+            "Daredevil",
+            "Bumblebee",
+            "Deadpool",
+            "Ready Player One",
+            "Aquaman",
+            "Mission Impossible",
+            "Solo",
+            "Incredibles",
+            "Incredibles 2",
+            "The Hunger Games",
+            "Star Trek",
+            "300",
+            "Avatar",
+            "Pirates of the Caribbean",
+            "The Hobbit: An Unexpected Journey",
+            "Cast Away",
+            "Indiana Jones",
+            "Gone Girl",
+            "Zodiac",            
+            "Shutter Island",            
+            "Arrival",
+            "Source Code",
+            "Identity",
+            "The Sixth Sense",
+            "The Usual Suspects",
+            "Crazy Rich Asians",
+            "Night School",
+            "Sorry to Bother You",
+            "Game Night",
+            "The Favourite",
+            "Johnny English Strikes Again",
+            "TAG",
+            "Blockers",
+            "The Spy Who Dumped Me",
+            "Ocean's 11",
+            "Get Out",
+            "Searching",
+            "A Quiet Place",
+            "Bad Times at the El Royale",
+            "Bird Box",
+            "Halloween",
+            "Split",
+            "A Simple Favor",
+            "Glass",
+            "Red Sparrow",
+            "The Notebook",
+            "The Fault in Our Stars",
+            "A Star is Born",
+            "Love Actually",
+            "Call Me by Your Name",
+            "Silver Linings Playbook",
+            "Set It Up",
+            "The Big Sick",
+            "About Time",
+            "Titanic",
+            "First Man",
+            "96",
+            "Bohemian Rhapsody",
+            "Roma",
+            "Widows",
+            "Interstellar",
+            "Inception",
+            "The Martian", 
+            "Annihilation"
+        ];
+    var tempMovies = joelMovies.concat(addMovies);
 
     tempMovies.sort();
 
@@ -77,7 +186,6 @@ $(document).ready(function () {
             movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
             movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
             var movieTitle = movieDiv.attr("data-title");
-            console.log(movieTitle);
             var genreArray = movieDiv.attr("data-genre").split(", ");
             for (i = 0; i < genreArray.length; i++) {
                 if (genre === genreArray[i]) {
@@ -140,7 +248,7 @@ $(document).ready(function () {
                 $("#infoCol").append(`<h6>Ratings: ${JSON.stringify(response.Ratings[1].Source)}: ${JSON.stringify(response.Ratings[1].Value)}</h6>`);
             }
         });
-    
-});
-loadPageDisplay();
+
+    });
+    loadPageDisplay();
 });
