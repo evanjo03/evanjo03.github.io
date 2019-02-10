@@ -119,7 +119,7 @@ $("document").ready(function () {
     //this is the function that will run between questions
     function loadingScreen() {
         canAnswer = false;
-        $("#loadingScreen").append(`<img src=${JSON.stringify(questions[questionCounter - 1].imageURL)} class ='text-center img-fluid' alt=${questions[questionCounter - 1]}/>`);
+        $("#loadingScreen").append("<img src=" + JSON.stringify(questions[questionCounter - 1].imageURL) + " class ='text-center img-fluid' alt='" + questions[questionCounter - 1] + "' />");
         setTimeout(function () {
             getQuestion();
             $("#loadingScreen").empty();
@@ -140,7 +140,7 @@ $("document").ready(function () {
         $("#timer").text(counterNumber);
         if (counterNumber === 0) {
             unAnswered++;
-            $("#answerResponse").text(`You didn't even answer! The correct answer is ${JSON.stringify((questions[questionCounter - 1].answer))}`);
+            $("#answerResponse").text("You didn't even answer! The correct answer is " + JSON.stringify((questions[questionCounter - 1].answer)));
             stopTimer();
             loadingScreen();
         }
@@ -180,15 +180,15 @@ $("document").ready(function () {
                 break;
         }
         $(".col").append(
-            `<div id = "endScreen">
-            <div class="end"> <strong>Quiz Results</strong> </div>
-            <hr>
-            <div class="end">Correct answers: ${correctAnswer} </div>
-            <div class="end">Incorrect answers: ${incorrectAnswer} </div>
-            <div class="end">Unanswered Questions: ${questions.length - correctAnswer - incorrectAnswer} </div>
-            <div class="end">Percentage Correct: ${score}%</div>
-            <div class="end">Grade: ${grade}</div>
-            </div>`
+            "<div id = 'endScreen'>" + 
+            "<div class='end'> <strong>Quiz Results</strong></div>" + 
+            "<hr>" +
+            "<div class='end'>Correct answers: " + correctAnswer + "</div>" + 
+            "<div class='end'>Incorrect answers: " + incorrectAnswer + "</div>" +
+            "<div class='end'>Unanswered Questions: " + (questions.length - correctAnswer - incorrectAnswer) + "</div>" + 
+            "<div class='end'>Percentage Correct: " + score + "%</div>" + 
+            "<div class='end'>Grade: " + grade + "</div>" + 
+            "</div>"
         );
         
         $("#letterGrade")
@@ -216,7 +216,7 @@ $("document").ready(function () {
                 incorrectAnswer++;
                 $("#incorrectAnswer").html("<div>Incorrect Answer: " + incorrectAnswer + "</div>");
                 stopTimer();
-                $("#answerResponse").text(`Incorrect. The correct answer is ${JSON.stringify((questions[questionCounter - 1].answer))}`);
+                $("#answerResponse").text("Incorrect. The correct answer is " + JSON.stringify((questions[questionCounter - 1].answer)));
                 loadingScreen();
             }
         }

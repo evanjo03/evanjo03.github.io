@@ -49,15 +49,13 @@ database.ref().on('child_added', function (childSnapshot) {
     var key = childSnapshot.key;
 
     $("tbody").append(
-        `<tr class="newRow">
-                <td> ${childSnapshot.val().trainName} </td>
-                <td> ${childSnapshot.val().trainDestination} </td>
-                <td> ${childSnapshot.val().trainFrequency} </td>
-                <td> ${moment(nextTrain).format("LT")} </td>
-                <td> ${minToArrival} </td>
-                <td class='text-center'><button class='arrival btn btn-danger btn-xs' data-key=${key}>X</button></td>));
-                </tr>`
-    );
+        "<tr class='newRow'>" +
+        "<td>" + childSnapshot.val().trainName + "</td>" +
+        "<td>" + childSnapshot.val().trainDestination + "</td>" +
+        "<td>" + childSnapshot.val().trainFrequency + "</td>" +
+        "<td>" + moment(nextTrain).format("LT") + "</td>" +
+        "<td>" + minToArrival + "</td>" +
+        "<td class='text-center'><button class='arrival btn btn-danger btn-xs' data-key='" + key + "' >X</button></td></tr>");
 });
 
 $(document).on("click", ".arrival", function () {
