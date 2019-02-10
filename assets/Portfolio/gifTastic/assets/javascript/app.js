@@ -6,7 +6,7 @@ $(document).ready(function () {
     //generate our buttons
     function genButtons() {
         for (i = 0; i < topics.length; i++) {
-            $("#buttonList").append(`<button type='button' class='btn topics btn-primary m-2' datatype='${topics[i]}'>${topics[i]}</button>`);
+            $("#buttonList").append("<button type='button' class='btn topics btn-primary m-2' datatype=" + topics[i] + ">" + topics[i] + "</button>");
         }
     }
 

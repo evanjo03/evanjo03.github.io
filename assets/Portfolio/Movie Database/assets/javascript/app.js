@@ -12,7 +12,6 @@ $(document).ready(function () {
             "wrong turn 4",
             "wrong turn 5",
             "wrong turn 6",
-            "troll",
             "troll 2",
             "dead alive",
             "evil bong"
@@ -78,8 +77,8 @@ $(document).ready(function () {
             "Cast Away",
             "Indiana Jones",
             "Gone Girl",
-            "Zodiac",            
-            "Shutter Island",            
+            "Zodiac",
+            "Shutter Island",
             "Arrival",
             "Source Code",
             "Identity",
@@ -122,12 +121,14 @@ $(document).ready(function () {
             "Widows",
             "Interstellar",
             "Inception",
-            "The Martian", 
+            "The Martian",
             "Annihilation"
         ];
     var tempMovies = joelMovies.concat(addMovies);
-
     tempMovies.sort();
+
+    var isDoneAjax = true;
+    var moviesLoaded = 0;
 
     var movieIndex = 0;
     console.log(movieIndex);
@@ -149,6 +150,7 @@ $(document).ready(function () {
     function loadPageDisplay() {
         var movie = tempMovies[movieIndex]; //myList
         var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+        isDoneAjax = false;
 
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
@@ -157,26 +159,36 @@ $(document).ready(function () {
         }).then(function (response) {
             var movieDiv = $("<div class='movieDiv'>");
             movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-            movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+            movieDiv.append("<img class='poster img-fluid' src='" + response.Poster + "' >"); //done
             var movieTitle = movieDiv.attr("data-title");
             $("#display").append(movieDiv);
             movieIndex++;
+            moviesLoaded++;
+            if (moviesLoaded == tempMovies.length) {
+                isDoneAjax = true;
+                moviesLoaded = 0;
+            }
+            console.log("Movies Loaded: " + moviesLoaded);
+            console.log("Is the ajax done = " + isDoneAjax);
         }).then(function () {
             if (movieIndex < tempMovies.length) {
                 loadPageDisplay();
             }
             else {
                 movieIndex = 0;
+                console.log("it stopped here")
             };
         });
+
     };
 
     var isGenre = false;
 
     function loadPageDisplayGenre(genre) {
+
         var movie = tempMovies[movieIndex];
         var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
-
+        isDoneAjax = false;
         // Creating an AJAX call for the specific movie button being clicked
         $.ajax({
             url: queryURL,
@@ -184,7 +196,7 @@ $(document).ready(function () {
         }).then(function (response) {
             var movieDiv = $("<div class='movieDiv'>");
             movieDiv.attr("data-title", response.Title).attr('data-genre', response.Genre).attr("data-ratings", response.Ratings);
-            movieDiv.append(`<img class="poster img-fluid" src="${response.Poster}">`);
+            movieDiv.append("<img class='poster img-fluid' src='" + response.Poster + "' >"); //done
             var movieTitle = movieDiv.attr("data-title");
             var genreArray = movieDiv.attr("data-genre").split(", ");
             for (i = 0; i < genreArray.length; i++) {
@@ -193,6 +205,13 @@ $(document).ready(function () {
                 }
             }
             movieIndex++;
+            moviesLoaded++;
+            if (moviesLoaded == tempMovies.length) {
+                isDoneAjax = true;
+                moviesLoaded = 0;
+            }
+            console.log("Movies Loaded: " + moviesLoaded);
+            console.log("Is the ajax done = " + isDoneAjax);
         }).then(function () {
             if (movieIndex < tempMovies.length) {
                 loadPageDisplayGenre(genre);
@@ -201,54 +220,67 @@ $(document).ready(function () {
                 movieIndex = 0;
             }
         });
+
     }
 
     $(document).on("click", ".home", function () {
-        $("#display").empty();
-        loadPageDisplay();
+        if (isDoneAjax == true) {
+            $("#display").empty();
+            $("#oneMovie").empty();
+            $("#display").attr("style", "display: inherit");
+            loadPageDisplay();
+        }
+
     });
 
     $(".genre").on("click", function () {
-        $("#display").empty();
-        loadPageDisplayGenre($(this).attr("id"));
+        if (isDoneAjax == true) {
+            $("#display").empty();
+            $("#oneMovie").empty(); 
+            $("#display").attr("style", "display: inherit");
+            loadPageDisplayGenre($(this).attr("id"));
+        }
     });
 
 
     //click selection
     $(document).on("click", ".movieDiv", function () {
         //create our bootstrap elements dynamically
-        $("#display").empty().append("<div id='myRow' class='row'></div>");
-        $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
-        $("#display").append(`<button id="backButton" type="button" class="btn m-3 home">Back to Menu</button>`)
+        if (isDoneAjax == true) {
+            $("#display").attr("style", "display:none");
+            $("#oneMovie").append("<div id='myRow' class='row'></div>");
+            $("#myRow").append("<div id='infoCol' class='col'</div>").append("<div id='posterCol' class='col'</div>");
+            $("#oneMovie").append("<button id='backButton' type='button' class='btn m-3 home'>Back to Menu</button>")
 
-        //make the call for the chosen movie
-        var selection = $(this).attr("data-title");
 
-        var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
+            //make the call for the chosen movie
+            var selection = $(this).attr("data-title");
 
-        // Creating an AJAX call for the specific movie button being clicked
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
-            $("#posterCol").append(`<img class="mainPoster img-fluid" src="${response.Poster}">`);
-            $("#selectionTitle").text(response.Title);
-            $("#infoCol").append(` 
-            <h6>Year: ${response.Year}</h6>
-            <h6>Rated: ${response.Rated}</h6>
-            <h6>Runtime: ${response.Runtime}</h6>
-            <h6>Director: ${response.Director}</h6>
-            <h6>Writer: ${response.Writer}</h6>
-            <h6>Actors: ${response.Actors}</h6>
-            <h6>Plot: ${response.Plot}</h6>
-            <h6>Genre: ${response.Genre}</h6>
-            <h6>Ratings: ${JSON.stringify(response.Ratings[0].Source)}: ${JSON.stringify(response.Ratings[0].Value)}</h6>`);
-            if (response.Ratings[1].Source) {
-                $("#infoCol").append(`<h6>Ratings: ${JSON.stringify(response.Ratings[1].Source)}: ${JSON.stringify(response.Ratings[1].Value)}</h6>`);
-            }
-        });
+            var queryURL = "https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy";
 
+            // Creating an AJAX call for the specific movie button being clicked
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                $("#infoCol").append("<h3 id='selectionTitle'></h3><hr>");
+                $("#posterCol").append("<img class='mainPoster img-fluid' src='" + response.Poster + "' >");
+                $("#selectionTitle").text(response.Title);
+                $("#infoCol").append(
+                    "<h6>Year: " + response.Year + "</h6>" +
+                    "<h6>Rated: " + response.Rated + "</h6>" +
+                    "<h6>Runtime: " + response.Runtime + "</h6>" +
+                    "<h6>Director: " + response.Director + "</h6>" +
+                    "<h6>Writer: " + response.Writer + "</h6>" +
+                    "<h6>Actors: " + response.Actors + "</h6>" +
+                    "<h6>Plot: " + response.Plot + "</h6>" +
+                    "<h6>Genre: " + response.Genre + "</h6>" +
+                    "<h6>Ratings: " + JSON.stringify(response.Ratings[0].Source) + ": " + JSON.stringify(response.Ratings[0].Value) + "</h6>");
+                if (response.Ratings[1].Source) {
+                    $("#infoCol").append("<h6>Ratings: " + JSON.stringify(response.Ratings[1].Source) + ": " + JSON.stringify(response.Ratings[1].Value) + "</h6>");
+                };
+            });
+        };
     });
     loadPageDisplay();
 });

@@ -2,6 +2,13 @@ html, body {
     height: 100%;
     width: 100%;
 }
+html {
+    overflow: hidden;
+}
+body {
+    overflow: auto;
+}
+
 .pageHeader {
 background-image: url("../images/background.jpg");
 height: 800px;
@@ -96,6 +103,8 @@ color: teal;
     visibility: hidden;
 }
 
+
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
     .image {
@@ -103,3 +112,4 @@ color: teal;
     }
 
 } 
+
