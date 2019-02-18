@@ -61,6 +61,19 @@ h3 {
 text-align: center;
 padding: 20px;
 }
+
+h6 {
+text-align: center;
+}
+
+h3:hover {
+    color: black;
+}
+    
+h6:hover {
+    color: black;
+}
+
 .image {
 width: 70%
 }
