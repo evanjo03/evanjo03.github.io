@@ -64,6 +64,9 @@ padding: 20px;
 
 h6 {
 text-align: center;
+display: inline-block;
+padding: 10px;
+
 }
 
 h3:hover {
@@ -98,6 +101,7 @@ font-size: 14px;
 a {
 text-decoration: none;
 color: white;
+
 }
 a:hover {
 text-decoration: none;
@@ -115,7 +119,9 @@ color: teal;
 #col-empty {
     visibility: hidden;
 }
-
+.col {
+    text-align: center;
+}
 
 
 /* Medium devices (landscape tablets, 768px and up) */
