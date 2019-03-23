@@ -38,7 +38,9 @@ body {
     position: absolute;
     bottom: 0;
     display: block;
-    
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
 }
 
 .navbar .navbar-toggler-icon {
