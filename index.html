@@ -5,146 +5,188 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>John Evans</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
-    <link rel="icon" href="assets/images/myLogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- bootstrap4 and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon" />
+
+    <title>John Evans</title>
 </head>
 
 <body>
-    <!-- navbar-expand-lg -->
-    <nav class="navbar navbar-expand-lg navbar-1">
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar fixed-top">
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0 float-right">
+            <ul class="navbar-nav ml-auto text-right mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#about-me">About Me</a>
+                    <a class="nav-link" href="#about-me-target">About Me</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#portfolio">My Projects</a>
+                    <a class="nav-link" href="#projects">Portfolio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="assets/images/Resume.pdf">Resume</a>
+                    <a class="nav-link" href="#">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/evanjo03" target="_blank">Github</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/john-evans-034a8210b/"
+                        target="_blank">LinkedIn</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div id="top" class="pageHeader">
+    <div class="header">
         <div class="name">
-            <h1>John Evans</h1>
-            <h6>Software Developer</h6>
+            <h3>John Evans</h3>
+            <h3>Software Developer</h3>
+        </div>
+        <div class="mx-auto d-block arrowDiv">
+            <a href="#about-me-target"><img class="img-responsive arrow" src="assets/images/down-arrow.png"></a>
         </div>
     </div>
-    <div id="about-me" class="container-fluid">
-        <h3>About Me</h3>
-        <p>
-            I grew up in the greater Madison, Wisconsin area. I attended Luther College in Iowa, and
-            studied math theory and applications there. While enrolled at Luther, I participated in a few different
-            organizations, including math club, and also played on the school's ultimate frisbee team. I recently
-            graduated in May of 2017. After graduation, I moved to the Twin Cities and after having worked for a year,
-            I have decided my interests lie in programming.
-        </p>
-        <p>
-            I am currently enrolled in a full-stack development program at the University of Minnesota looking to move
-            into into web/software development.
-        </p>
-    </div>
-    <div class="container-fluid" id="portfolio">
-        <h3 id="project-heading">My Projects</h3>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <a href="https://evanjo03.github.io/movie-database" target="_blank">
-                    <h6 class="pr-3 pl-3">Movie Database</h6>
-
-                    <img class="image img-fluid pr-3 pl-3" src="assets/images/movieDatabase.jpg">
-                </a>
-                <a href="https://github.com/evanjo03/movie-database" target="_blank">
-                    <h6 class="github-link">See on Github</h6>
-
-                </a>
+    <section id="about-me" class="container-fluid about-me">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 id="about-me-target" class="text-center section-header">Who I Am</h2>
+                    <p class="text-sections">Software developer and problem-solver with experience in full-stack
+                        development and
+                        business process automation with an interest in back-end development.</p>
+                </div>
             </div>
-            <div class="col">
-                <a href="https://evanjo03.github.io/trainSchedule" target="_blank">
-                    <h6 class="pr-3 pl-3">Train Schedule</h6>
-
-                    <img class="image img-fluid p-3" src="assets/images/train.jpg">
-                </a>
-                <a href="https://github.com/evanjo03/trainSchedule" target="_blank">
-                    <h6 class="github-link">See on Github</h6>
-                </a>
+            <div class="row">
+                <div class="col-4">
+                    <div class="skill">
+                        <img src="assets/images/luther_logo.jpg" alt="client" class="img-responsive img-skill" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="skill">
+                        <img src="assets/images/wisconsin.png" class="img-responsive img-skill" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="skill-image">
+                        <img src="assets/images/math.png" class="img-responsive img-skill"
+                            alt="server icon made by SmashIcons from www.flaticon.com"
+                            title="server icon made by SmashIcons from www.flaticon.com" />
+                    </div>
+                </div>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <a href="https://evanjo03.github.io/TriviaGame" target="_blank">
-                    <h6 class="pr-3 pl-3">Harry Potter Trivia</h6>
-                    <img class="image img-fluid p-3" src="assets/images/TriviaGame.jpg" alt="">
-                </a>
-                <a href="https://github.com/evanjo03/TriviaGame" target="_blank">
-                    <h6 class="github-link">See on Github</h6>
-                </a>
-            </div>
-            <div class="col">
-                <a href="https://github.com/evanjo03/store-front" target="_blank">
-                    <h6 class="pr-3 pl-3">Store Front Node Application</h6>
 
-                    <img class="image img-fluid p-3" src="assets/images/storeFront.png" alt="">
+    </section>
+    <section id="skills" class="container-fluid skills">
+        <div class="container">
+            <h2 class="text-center section-header">What I Do</h2>
+            <div class="row">
+                <div class="col-4">
+                    <div class="skill">
+                        <img src="assets/images/client.png" alt="client" class="img-responsive img-skill" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="skill">
+                        <img src="assets/images/route.svg" class="img-responsive img-skill" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="skill-image">
+                        <img src="assets/images/server.png" class="img-responsive img-skill"
+                            alt="server icon made by SmashIcons from www.flaticon.com"
+                            title="server icon made by SmashIcons from www.flaticon.com" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center sub-header">Full Stack Development</h2>
+                    <p class="text-sections">I have experience with technologies including Node.js, Express.js,
+                        Sequelize.js, mySQL databases. I am always eager to learn.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid">
+        <div id="projects" class="container projects">
+            <h2 class="text-center section-header">My Projects</h2>
+            <div id="carouselExampleIndicators" class="carousel slide carouselSelect" data-interval="false"
+                data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-cap">
+                            <span>Express Burger App</span>
+                            <a href="https://github.com/evanjo03/node-express-handlebars"><button type="button"
+                                    class="btn btn-primary github">Github</button></a>
+                            <a href="https://boiling-woodland-36230.herokuapp.com/"><button type="button"
+                                    id="burgButton" class="btn btn-secondary">View</button></a>
+                        </div>
+                        <img class="intSlide d-block w-100" src="assets/images/burger.png" alt="Burger Game">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-cap">
+                            <span>Express Friend Finder</span>
+                            <a href="https://github.com/evanjo03/friend-finder"><button type="button"
+                                    class="btn btn-primary github">Github</button></a>
+                            <a href="https://peaceful-taiga-71851.herokuapp.com/"><button type="button" id="burgButton"
+                                    class="btn btn-secondary">View</button></a>
+                        </div>
+                        <img class="intSlide d-block w-100" src="assets/images/friend_finder.png" alt="Burger Game">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-cap">
+                            <span>Train Scheduler</span>
+                            <a href="https://github.com/evanjo03/trainSchedule"><button type="button"
+                                    class="btn btn-primary github">Github</button></a>
+                            <a href="https://peaceful-taiga-71851.herokuapp.com/"><button type="button" id="burgButton"
+                                    class="btn btn-secondary">View</button></a>
+                        </div>
+                        <img class="intSlide d-block w-100" src="assets/images/train_schedule.png" alt="Burger Game">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
                 </a>
-                <a href="https://github.com/evanjo03/store-front" target="_blank">
-                    <h6 class="github-link">See on Github</h6>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
                 </a>
             </div>
 
         </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <a href="https://peaceful-taiga-71851.herokuapp.com/home" target="_blank">
-                    <h6 class="pr-3 pl-3">Express Friend Finder</h6>
-                    <img class="image img-fluid p-3" src="assets/images/friend-finder.png" alt="">
-
+    </section>
+    <footer class="footer mt-auto">
+        <div class="container text-center">
+            <span>John Evans 2019</span>
+            <span>
+                <a href="https://www.linkedin.com/in/john-evans-034a8210b/">
+                    <img src="assets/images/linkedin.png" class="logo" target="_blank" alt="linkedin" />
                 </a>
-                <a href="https://github.com/evanjo03/friend-finder">
-                    <h6 class="github-link">See on Github</h6>
+            </span>
+            <span>
+                <a href="https://github.com/evanjo03">
+                    <img src="assets/images/github.svg" class="logo" target="_brank" alt="linkedin" />
                 </a>
-            </div>
-            <div class="col">
-                <a href="https://boiling-woodland-36230.herokuapp.com/" target="_blank">
-                    <h6 class="pr-3 pl-3">Burger Application</h6>
-                    <img class="image img-fluid p-3" src="assets/images/burger.png" alt="">
-                </a>
-                <a href="https://github.com/evanjo03/node-express-handlebars">
-                    <h6 class="github-link">See on Github</h6>
-                </a>
-            </div>
-        </div>
-    </div>
-    <footer class="page-footer font-small blue pt-4">
-        <div class="container-fluid text-center text-md-left">
-            <div class="contact-info">
-                <div>evanjo03@luther.edu</div>
-                <div>Minneapolis, MN</div>
-                <div>© 2018 Copyright</div>
-            </div>
+            </span>
         </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="assets/javascript/app.js" type="text/javascript"></script>
+    <script src="../portfolio-proto/assets/javascript/app.js"></script>
 </body>
 
 </html>
