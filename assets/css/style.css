@@ -29,6 +29,16 @@ body {
     margin: auto;
     display: block;
 }
+h6 {
+    position: absolute;
+    bottom: 20px;
+    display: block;
+    padding: 10px;
+    background: rgb(73,73,125,.9);
+    color: white;
+    font-weight: 700;
+}
+
 
 .arrow {
     width:45px;
@@ -52,8 +62,7 @@ body {
     background: black;
 }
 .navbar {
-    background: none;
-    
+    background: none
 }
 
 a.nav-link {
@@ -71,6 +80,9 @@ right: 0;
 left: 0;
 }
 
+.port-div {
+    padding: 20px;
+}
 li.nav-item {
     display: inline-block;
 }
