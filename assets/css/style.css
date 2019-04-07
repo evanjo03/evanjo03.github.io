@@ -39,6 +39,11 @@ h6 {
     font-weight: 700;
 }
 
+h6:hover {
+    background: #fff;
+    color: red;
+}
+
 
 .arrow {
     width:45px;
