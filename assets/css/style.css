@@ -19,7 +19,7 @@ body {
 }
 
 .header {
-    background-image: url("../images/background1.jpg");
+    background-image: url("../images/background2.jpg");
     height: 100vh;
     background-attachment: fixed;
     background-position: center;
@@ -118,14 +118,16 @@ a:hover {
     margin: auto;
 }
 
-
-.skills {
+.projects {
     background-color: #49497D;
     color: #fff;
+}
+
+.skills {
     padding-top: 95px;
     padding-bottom: 95px;
-
 }
+
 .carousel-cap {
     text-align: center;
 }
@@ -163,6 +165,18 @@ section {
 .logo {
     width: 30px;
 }
+
+.logo-link:hover {
+    text-decoration: none;
+}
+
+.email-link:hover {
+    text-decoration: none;
+    color:black;
+}
+
+
+
 
  @media (min-width: 768px) and (max-width: 1000px)  {
     .collapse {
