@@ -1,3 +1,5 @@
-# portfolio-proto
+# Portfolio 
 
-This will serve as a workbench for an updated portfolio
+This repository is the base for my portfolio website, which is hosted at the below link:
+
+## johnevans.tech
